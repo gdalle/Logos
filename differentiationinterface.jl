@@ -11,16 +11,17 @@ begin
 end
 
 # ╔═╡ 1bed0dd8-1896-4659-b077-d82cc07b2375
-RED, GREEN, BLUE, PURPLE = Colors.JULIA_LOGO_COLORS
+(; red, green, blue, purple) = Colors.JULIA_LOGO_COLORS
 
 # ╔═╡ 677751c5-aa9a-4c53-acdb-308958562255
 @draw begin
 	origin(0, 0)
+	background("white")
+	ref = "black"
 
-	fontsize(270)
-	fontface("Georgia-Bold")
+	setfont("Liberation Sans Medium", 300)
 	setline(30)
-	setlinecap("round")
+	setlinejoin("round")
 	
 	red_point = Point(100, 100)
 	purple_point = Point(300, 100)
@@ -28,37 +29,28 @@ RED, GREEN, BLUE, PURPLE = Colors.JULIA_LOGO_COLORS
 	red_purple_point = (red_point + purple_point) / 2
 	red_green_point = (red_point + green_point) / 2
 	purple_green_point = (purple_point + green_point) / 2
-	f_point = Point(320, 300)
+	f_point = Point(320, 390)
 	
-	red_black = blend(red_point, 0, red_point, 100, RED, "black")
-	purple_black = blend(purple_point, 0, purple_point, 100, PURPLE, "black")
-	green_black = blend(green_point, 0, green_point, 100, GREEN, "black")
-	blue_black = blend(f_point, 0, f_point, 200, BLUE, "black")
+	red_black = blend(red_point, 0, red_point, 100, red, ref)
+	purple_black = blend(purple_point, 0, purple_point, 100, purple, ref)
+	green_black = blend(green_point, 0, green_point, 100, green, ref)
+	blue_black = blend(f_point, 0, f_point, 250, blue, ref)
 	
 	# red corner
 	setblend(red_black)
-	move(red_green_point)
-	line(red_green_point, red_point)
-	line(red_point, red_purple_point)
+	poly([red_green_point, red_point, red_purple_point])
 	strokepath()
-	
 	# purple corner
 	setblend(purple_black)
-	move(purple_green_point)
-	line(purple_green_point, purple_point)
-	line(purple_point, red_purple_point)
+	poly([purple_green_point, purple_point, red_purple_point])
 	strokepath()
-	
 	# green corner
 	setblend(green_black)
-	move(purple_green_point)
-	line(purple_green_point, green_point)
-	line(green_point, red_green_point)
+	poly([purple_green_point, green_point, red_green_point])
 	strokepath()
-	
 	# function
 	setblend(blue_black)
-	text("f", f_point)
+	settext("f", f_point) 
 end 500 500
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
