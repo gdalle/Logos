@@ -14,14 +14,14 @@ end
 (; red, green, blue, purple) = Colors.JULIA_LOGO_COLORS
 
 # ╔═╡ 677751c5-aa9a-4c53-acdb-308958562255
-@draw begin
+@png begin
 	origin(0, 0)
 	background("white")
 	ref = "black"
 
-	setfont("Liberation Sans Medium", 300)
+	setfont("Liberation Sans Medium", 330)
 	setline(30)
-	setlinejoin("round")
+	setlinejoin("square")
 	
 	red_point = Point(100, 100)
 	purple_point = Point(300, 100)
@@ -29,12 +29,12 @@ end
 	red_purple_point = (red_point + purple_point) / 2
 	red_green_point = (red_point + green_point) / 2
 	purple_green_point = (purple_point + green_point) / 2
-	f_point = Point(320, 390)
+	f_point = Point(320, 400)
 	
 	red_black = blend(red_point, 0, red_point, 100, red, ref)
 	purple_black = blend(purple_point, 0, purple_point, 100, purple, ref)
 	green_black = blend(green_point, 0, green_point, 100, green, ref)
-	blue_black = blend(f_point, 0, f_point, 250, blue, ref)
+	blue_black = blend(f_point, 0, f_point, 350, blue, ref)
 	
 	# red corner
 	setblend(red_black)
@@ -51,7 +51,7 @@ end
 	# function
 	setblend(blue_black)
 	settext("f", f_point) 
-end 500 500
+end 500 400
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
