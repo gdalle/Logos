@@ -7,34 +7,44 @@ using InteractiveUtils
 # ╔═╡ 77129be0-0392-11ef-2b19-a96c49995419
 begin
 	using Colors
+	using LinearAlgebra
 	using Luxor
+	# download font from https://github.com/JuliaLang/julia-logo-graphics/ first
 end
 
 # ╔═╡ 1bed0dd8-1896-4659-b077-d82cc07b2375
 (; red, green, blue, purple) = Colors.JULIA_LOGO_COLORS
 
-# ╔═╡ 677751c5-aa9a-4c53-acdb-308958562255
-@png begin
-	origin(0, 0)
-	background("white")
-	ref = "black"
-
-	setfont("Liberation Sans Medium", 330)
-	setline(30)
-	setlinejoin("square")
+# ╔═╡ 19ae9d5e-14c3-4912-8ecd-603eb11e2793
+function red_purple_green_triangle(;
+	red_point, purple_point, green_point,
+	lwidth=30, ljoin="square"
+)
+	setline(lwidth)
+	setlinejoin(ljoin)
 	
-	red_point = Point(100, 100)
-	purple_point = Point(300, 100)
-	green_point = Point(200, 300)
 	red_purple_point = (red_point + purple_point) / 2
 	red_green_point = (red_point + green_point) / 2
 	purple_green_point = (purple_point + green_point) / 2
-	f_point = Point(320, 400)
-	
-	red_black = blend(red_point, 0, red_point, 100, red, ref)
-	purple_black = blend(purple_point, 0, purple_point, 100, purple, ref)
-	green_black = blend(green_point, 0, green_point, 100, green, ref)
-	blue_black = blend(f_point, 0, f_point, 350, blue, ref)
+	red_purple_dist = norm(red_point - purple_point)
+	red_green_dist = norm(red_point - green_point)
+	purple_green_dist = norm(purple_point - green_point)
+
+	red_black = blend(
+		red_point, 0,
+		red_point, min(red_purple_dist, red_green_dist) / 2,
+		red, "black"
+	)
+	purple_black = blend(
+		purple_point, 0,
+		purple_point, min(red_purple_dist, purple_green_dist) / 2,
+		purple, "black"
+	)
+	green_black = blend(
+		green_point, 0,
+		green_point, min(red_green_dist, purple_green_dist) / 2,
+		green, "black"
+	)
 	
 	# red corner
 	setblend(red_black)
@@ -48,15 +58,39 @@ end
 	setblend(green_black)
 	poly([purple_green_point, green_point, red_green_point])
 	strokepath()
-	# function
+end
+
+# ╔═╡ f72c9b2f-c688-4d18-813f-a4fa90f13dd0
+function text_function(; point, fsize, fface="TamilMN Bold")
+	setfont(fface, fsize) 
+	blendpoint = point + Point(0.43 * fsize, -0.98 * fsize)
+	blue_black = blend(
+		blendpoint, 0,
+		blendpoint, fsize / 2,
+		blue, "black"
+	)
 	setblend(blue_black)
-	settext("f", f_point) 
-end 500 400
+	settext("f", point)
+end
+
+# ╔═╡ 677751c5-aa9a-4c53-acdb-308958562255
+@draw begin
+	origin(0, 0)
+	red_purple_green_triangle(
+		red_point = Point(300, 100),
+		purple_point = Point(100, 100),
+		green_point = Point(200, 300),
+		lwidth=40,
+		ljoin="round",
+	)
+	text_function(; point=Point(340, 410), fsize=330)
+end 600 400
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
 Colors = "5ae59095-9a9b-59fe-a467-6f913c188581"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Luxor = "ae8d54c2-7ccd-5906-9d76-62fc9837b5bc"
 
 [compat]
@@ -70,7 +104,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.2"
 manifest_format = "2.0"
-project_hash = "9b55894a9478a2272afcfd519210f127aaf17882"
+project_hash = "a7f2fdee85713455083231c6cc29fb5a80975d1f"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -668,6 +702,8 @@ version = "3.5.0+0"
 # ╔═╡ Cell order:
 # ╠═77129be0-0392-11ef-2b19-a96c49995419
 # ╠═1bed0dd8-1896-4659-b077-d82cc07b2375
+# ╠═19ae9d5e-14c3-4912-8ecd-603eb11e2793
+# ╠═f72c9b2f-c688-4d18-813f-a4fa90f13dd0
 # ╠═677751c5-aa9a-4c53-acdb-308958562255
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
