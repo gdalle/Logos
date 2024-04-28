@@ -96,6 +96,13 @@ md"""
 ## Cormullion
 """
 
+# ╔═╡ 1abd4af3-66c8-4450-8937-46e20cc06f70
+function scale_luminosity(c::T, scale) where {T<:Colorant}
+	c = Lab(c)
+	c = Lab(c.l*scale, c.a, c.b)
+	return T(c)
+end
+
 # ╔═╡ fb8f6f4f-fe01-4e0b-a4af-87f3f535c47e
 function draw_leg(pos, rotation, color)
     pgon = Point[Point(102.0, -60.0), 
@@ -109,16 +116,19 @@ function draw_leg(pos, rotation, color)
         rotate(rotation)
 		setblend(blend(
 			pgon[3], 0,
-			pgon[3], 500,
-			color, "white",
+			pgon[3], 900,
+			scale_luminosity(Colors.RGB(color...), 0.8), "white",
 		))
         poly(pgon, :fill, close=true)
+		# setcolor("black")
+        # poly(pgon, :stroke, close=true)
     end
 end
 
 # ╔═╡ df4d63f6-b61d-4b8e-b652-494843485bf9
 @draw begin
-    background("black")
+	setline(5)
+    background("white")
     for (n, θ) in enumerate(range(0, 2π - 2π/3, step=2π/3))
         color = [Luxor.julia_red, Luxor.julia_green, Luxor.julia_purple][n]
         draw_leg(O, θ, color)
@@ -746,6 +756,7 @@ version = "3.5.0+0"
 # ╠═f72c9b2f-c688-4d18-813f-a4fa90f13dd0
 # ╠═677751c5-aa9a-4c53-acdb-308958562255
 # ╟─46aa7b7a-8eaa-4c54-a64d-8526a2ba66df
+# ╠═1abd4af3-66c8-4450-8937-46e20cc06f70
 # ╠═fb8f6f4f-fe01-4e0b-a4af-87f3f535c47e
 # ╠═df4d63f6-b61d-4b8e-b652-494843485bf9
 # ╟─00000000-0000-0000-0000-000000000001
