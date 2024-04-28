@@ -12,6 +12,11 @@ begin
 	# download font from https://github.com/JuliaLang/julia-logo-graphics/ first
 end
 
+# ╔═╡ ea6c288e-5d79-47ee-b844-f19ddcf8af97
+md"""
+## Guillaume
+"""
+
 # ╔═╡ 1bed0dd8-1896-4659-b077-d82cc07b2375
 (; red, green, blue, purple) = Colors.JULIA_LOGO_COLORS
 
@@ -85,6 +90,40 @@ end
 	)
 	text_function(; point=Point(340, 410), fsize=330)
 end 600 400
+
+# ╔═╡ 46aa7b7a-8eaa-4c54-a64d-8526a2ba66df
+md"""
+## Cormullion
+"""
+
+# ╔═╡ fb8f6f4f-fe01-4e0b-a4af-87f3f535c47e
+function draw_leg(pos, rotation, color)
+    pgon = Point[Point(102.0, -60.0), 
+        Point(123.0, -96.0), 
+        Point(-209.0, -96.0), 
+        Point(-25.0, 229.0), 
+        Point(20.0, 229.0), 
+        Point(-147.0, -60.0)]
+    @layer begin
+        translate(pos)
+        rotate(rotation)
+		setblend(blend(
+			pgon[3], 0,
+			pgon[3], 500,
+			color, "white",
+		))
+        poly(pgon, :fill, close=true)
+    end
+end
+
+# ╔═╡ df4d63f6-b61d-4b8e-b652-494843485bf9
+@draw begin
+    background("black")
+    for (n, θ) in enumerate(range(0, 2π - 2π/3, step=2π/3))
+        color = [Luxor.julia_red, Luxor.julia_green, Luxor.julia_purple][n]
+        draw_leg(O, θ, color)
+    end
+end
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -701,9 +740,13 @@ version = "3.5.0+0"
 
 # ╔═╡ Cell order:
 # ╠═77129be0-0392-11ef-2b19-a96c49995419
+# ╟─ea6c288e-5d79-47ee-b844-f19ddcf8af97
 # ╠═1bed0dd8-1896-4659-b077-d82cc07b2375
 # ╠═19ae9d5e-14c3-4912-8ecd-603eb11e2793
 # ╠═f72c9b2f-c688-4d18-813f-a4fa90f13dd0
 # ╠═677751c5-aa9a-4c53-acdb-308958562255
+# ╟─46aa7b7a-8eaa-4c54-a64d-8526a2ba66df
+# ╠═fb8f6f4f-fe01-4e0b-a4af-87f3f535c47e
+# ╠═df4d63f6-b61d-4b8e-b652-494843485bf9
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
