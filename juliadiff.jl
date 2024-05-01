@@ -9,6 +9,7 @@ begin
 	using Colors
 	using LinearAlgebra
 	using Luxor
+	using Luxor: julia_red, julia_blue, julia_green, julia_purple
 	# download font from https://github.com/JuliaLang/julia-logo-graphics/ first
 end
 
@@ -135,6 +136,21 @@ end
     end
 end
 
+# ╔═╡ c21407c5-7993-416d-9799-5756590d6042
+md"""
+## Christopher Rowley
+"""
+
+# ╔═╡ 84fc37a4-2c27-4e80-be4d-04ec3623cb24
+@draw begin
+	background("black")
+	translate(150, 0)
+	juliacircles(150)
+	setfont("TamilMN Bold", 630)
+	setcolor(Luxor.julia_blue)
+	settext("∇", Point(-600, 290))
+end 1000 600
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -151,7 +167,7 @@ Luxor = "~4.0.0"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.10.2"
+julia_version = "1.10.3"
 manifest_format = "2.0"
 project_hash = "a7f2fdee85713455083231c6cc29fb5a80975d1f"
 
@@ -208,7 +224,7 @@ weakdeps = ["Dates", "LinearAlgebra"]
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.1.0+0"
+version = "1.1.1+0"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
@@ -759,5 +775,7 @@ version = "3.5.0+0"
 # ╠═1abd4af3-66c8-4450-8937-46e20cc06f70
 # ╠═fb8f6f4f-fe01-4e0b-a4af-87f3f535c47e
 # ╠═df4d63f6-b61d-4b8e-b652-494843485bf9
+# ╟─c21407c5-7993-416d-9799-5756590d6042
+# ╠═84fc37a4-2c27-4e80-be4d-04ec3623cb24
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
