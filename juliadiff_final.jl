@@ -8,18 +8,26 @@ using InteractiveUtils
 using Luxor
 
 # ╔═╡ 3f7afc36-b035-49e7-858f-5dccf4e63357
-function juliadiff_logo(scaling; name_placement=nothing, name_color="black")
-	juliacircles(scaling * 100)
-	setfont("TamilMN Bold", scaling * 420)
+function juliadiff_logo(; name_placement=nothing, name_color="black")
+	# circles
+	juliacircles( 100)
+	h =  100 * 2 * 0.75
+	l = sqrt(4/3) * h
+	r = (l/2) / cosd(30)
+	# nabla
+	setfillrule(:even_odd)
 	setcolor(Luxor.julia_blue)
-	settext("∇", O + scaling * Point(-410, 200))
+    ngon(O + (-300, -h/2), 2r, 3, -π/6, action=:path)
+    ngon(O + (-300, -h/2) + (20, -5), 2r * 0.7, 3, -π/6, action=:path)
+    fillpath()
+	# name
 	if !isnothing(name_placement)
 		setcolor(name_color)
-		setfont("TamilMN Bold", scaling * 150)
+		setfont("TamilMN Bold", 150)
 		if name_placement == :below
-			settext("JuliaDiff", O + scaling * Point(-430, 330))
+			settext("JuliaDiff", O + (-480, 330))
 		elseif name_placement == :right
-			settext("JuliaDiff", O + scaling * Point(200, 52))
+			settext("JuliaDiff", O + (200, 52))
 		end
 	end
 end
@@ -28,28 +36,28 @@ end
 @draw begin
 	background("white")
 	origin(500, 200)
-	juliadiff_logo(1; name_placement=:below, name_color="black")
-end 800 550
+	juliadiff_logo(; name_placement=:below, name_color="black")
+end 750 550
 
 # ╔═╡ e98c2b6d-dbd4-4367-8bae-77e7d0596ba9
 @draw begin
 	background("white")
 	origin(500, 250)
-	juliadiff_logo(1; name_placement=:right, name_color="black")
+	juliadiff_logo(; name_placement=:right, name_color="black")
 end 1500 500
 
 # ╔═╡ 56c93e3a-f0a4-4b31-8a92-7e99d3e69563
 @draw begin
 	background("black")
 	origin(500, 200)
-	juliadiff_logo(1; name_placement=:below, name_color="white")
-end 800 550
+	juliadiff_logo(; name_placement=:below, name_color="white")
+end 750 550
 
 # ╔═╡ 38ca24ce-acee-49de-805c-47f38e0150ce
 @draw begin
 	background("black")
 	origin(500, 250)
-	juliadiff_logo(1; name_placement=:right, name_color="white")
+	juliadiff_logo(; name_placement=:right, name_color="white")
 end 1500 500
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
