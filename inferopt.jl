@@ -21,21 +21,21 @@ end
 	circle_radius = 50
 	circle_alpha = 0.5
 	
-	p = ngon(Point(0, 0), polygon_size, polygon_sides, vertices=true)
+	p = ngon(Point(-40, 0), polygon_size, polygon_sides, vertices=true)
 	setcolor(sethue("black")...)
 	poly(p, action = :stroke, close=true)
-	setcolor(sethue(red)..., circle_alpha)
-	circle(p[5], circle_radius, action=:fill)
-	setcolor(sethue(purple)..., circle_alpha)
-	circle(p[4], circle_radius * 0.8, action=:fill)
 	setcolor(sethue(green)..., circle_alpha)
+	circle(p[5], circle_radius, action=:fill)
+	setcolor(sethue(red)..., circle_alpha)
+	circle(p[4], circle_radius * 0.8, action=:fill)
+	setcolor(sethue(purple)..., circle_alpha)
 	circle(p[1], circle_radius * 0.6, action=:fill)
 	setcolor(blue)
 	arrow(
-		Point(-circle_radius, 0), Point(circle_radius / 2, 0),
+		Point(-40 - circle_radius, 0), Point(-40 + circle_radius / 2, 0),
 		linewidth=3, arrowheadangle=π/7, arrowheadlength=20
 	)
-end
+end 300 300
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -52,7 +52,7 @@ Luxor = "~4.0.0"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.10.2"
+julia_version = "1.10.3"
 manifest_format = "2.0"
 project_hash = "9b55894a9478a2272afcfd519210f127aaf17882"
 
@@ -109,7 +109,7 @@ weakdeps = ["Dates", "LinearAlgebra"]
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.1.0+0"
+version = "1.1.1+0"
 
 [[deps.DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
